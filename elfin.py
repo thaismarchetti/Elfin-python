@@ -36,11 +36,84 @@ class elfin:
     def Electrify(self):
         """
         Function: Power the robot
+        Notes: successful completion of power up before returning, power up time is
+        about 44s.
         :return:
             if Error Return False
             if not Error Return True
         """
         message = "Electrify" + self.end_msg
+        status = self.send(message)
+        return status
+
+    def BlackOut(self):
+        """
+        Function: Robot blackout
+        Notes: successful power outage will only return, power failure time is 3s.
+        :return:
+            if Error Return False
+            if not Error Return True
+        """
+        message = "BlackOut" + self.end_msg
+        status = self.send(message)
+        return status
+
+    def StartMaster(self):
+        """
+        Function: Start master station
+        Notes: the master station will not be returned until successfully started, startup
+        master time is about 4s.
+        :return:
+            if Error Return False
+            if not Error Return True
+        """
+        message = "StartMaster" + self.end_msg
+        status = self.send(message)
+        return status
+
+    def CloseMaster(self):
+        """
+        Function: Close master station
+        Notes: the master station will not be returned until successfully closed, shut
+        down the master station time is about 2s.
+        :return:
+            if Error Return False
+            if not Error Return True
+        """
+        message = "CloseMaster" + self.end_msg
+        status = self.send(message)
+        return status
+
+    def GrpPowerOn(self):
+        """
+        Function: Robot servo on
+        :return:
+            if Error Return False
+            if not Error Return True
+        """
+        message = "GrpPowerOn," + self.rbtID + self.end_msg
+        status = self.send(message)
+        return status
+
+    def GrpPowerOff(self):
+        """
+        Function: Robot servo off
+        :return:
+            if Error Return False
+            if not Error Return True
+        """
+        message = "GrpPowerOff," + self.rbtID + self.end_msg
+        status = self.send(message)
+        return status
+
+    def GrpStop(self):
+        """
+        Function: Stop robot
+        :return:
+            if Error Return False
+            if not Error Return True
+        """
+        message = "GrpStop," + self.rbtID + self.end_msg
         status = self.send(message)
         return status
 
@@ -52,7 +125,7 @@ class elfin:
             if not Error Return True
         """
 
-        message = "SetOverride" + self.rbtID + ',' + str(override) + self.end_msg
+        message = "SetOverride," + self.rbtID + ',' + str(override) + self.end_msg
         status = self.send(message)
         return status
 
@@ -72,7 +145,7 @@ class elfin:
     def MoveL(self, target):
         """
         function: Robot moves straight to the specified space coordinates
-        :param target:[X,Y,Z,RX,RY,RZ]
+        :param: target:[X,Y,Z,RX,RY,RZ]
         :return:
         """
         target = [str(s) for s in target]
@@ -80,3 +153,15 @@ class elfin:
         message = "MoveL," + self.rbtID + ',' + target + self.end_msg
         print(message)
         return self.send(message)
+
+    def SetToolCoordinateMotion(self, status):
+        """
+        function: Function: Set tool coordinate motion
+        :param: int Switch 0=close 1=open
+        :return:
+            if Error Return False
+            if not Error Return True
+        """
+        message = "SetToolCoordinateMotion," + self.rbtID + ',' + str(status) + self.end_msg
+        status = self.send(message)
+        return status
