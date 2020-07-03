@@ -120,8 +120,10 @@ class elfin:
     def SetOverride(self, override):
         """
         function: Set speed ratio
+        :param override:
+            double: set speed ratio, range of 0.01~1
         :return:
-            if Error Return False
+        if Error Return False
             if not Error Return True
         """
 
@@ -151,7 +153,6 @@ class elfin:
         target = [str(s) for s in target]
         target = (",".join(target))
         message = "MoveL," + self.rbtID + ',' + target + self.end_msg
-        print(message)
         return self.send(message)
 
     def SetToolCoordinateMotion(self, status):
@@ -163,5 +164,30 @@ class elfin:
             if not Error Return True
         """
         message = "SetToolCoordinateMotion," + self.rbtID + ',' + str(status) + self.end_msg
+        status = self.send(message)
+        return status
+
+    def ReadMoveState(self):
+        """
+        Function: Get the motion state of the robot
+        :return:
+            Current state of motion of robot:
+            0=motion completion;
+            1009=in motion;
+            1013=waiting for execution;
+            1025 =Error reporting
+        """
+        message = "ReadMoveState," + self.rbtID + self.end_msg
+        status = int(self.send(message)[0])
+        return status
+
+    def MoveHoming(self):
+        """
+        Function: Robot returns to the origin
+        :return:
+            if Error Return False
+            if not Error Return True
+        """
+        message = "MoveHoming," + self.rbtID + self.end_msg
         status = self.send(message)
         return status
