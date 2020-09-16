@@ -63,18 +63,7 @@ while status == 1009:
 print("end move")
 print(cobot.ReadPcsActualPos())
 
-target = [0,90,0,0,90,0]
-print("starting move")
-print(cobot.MoveBP(target))
-status = cobot.ReadMoveState()
-while status == 1009:
-    time.sleep(2)
-    print("moving...")
-    print(cobot.ReadPcsActualPos())
-    status = cobot.ReadMoveState()
-    print(status)
-print("end move")
-print(cobot.ReadPcsActualPos())
+
 
 
 
