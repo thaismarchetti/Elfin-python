@@ -155,6 +155,73 @@ class elfin:
         message = "MoveL," + self.rbtID + ',' + target + self.end_msg
         return self.send(message)
 
+    def MoveCL(self, target):
+        """
+        function: Circular motion
+        :param: MoveCL,rbtID,AtualCoord[X,Y,Z],GoalCoord[X,Y,Z,RX,RY,RZ],dCircleCnt[number of circles>1],Type[0 or 1],;
+        :return:
+        """
+        target = [str(s) for s in target]
+        target = (",".join(target))
+        message = "MoveCL," + self.rbtID + ',' + target + self.end_msg
+        return self.send(message)
+
+    def MoveC(self, target):
+        """
+        function: Arc motion
+        :param: MoveCL,rbtID,AtualCoord[X,Y,Z],GoalCoord[X,Y,Z,RX,RY,RZ],Type[0 or 1],;
+        :return:
+        """
+        target = [str(s) for s in target]
+        target = (",".join(target))
+        message = "MoveC," + self.rbtID + ',' + target + self.end_msg
+        return self.send(message)
+
+    def MoveJ(self, target):
+        """"
+        Function: Robot moves to the specified angular coordinate position
+        Format: MoveJ,rbtID,J1,J2,J3,J4,J5,J6,;
+        :param: target:[X,Y,Z,RX,RY,RZ]
+        :return:
+        """
+        target = [str(s) for s in target]
+        target = (",".join(target))
+        message = "MoveJ," + self.rbtID + ',' + target + self.end_msg
+        return self.send(message)
+
+    def MoveBP(self, target):
+        """"
+        Function: Move in a linear motion to the specified angular coordinate position
+        :param: target: [J1,J2,J3,J4,J5,J6]
+        :return:
+        """
+        target = [str(s) for s in target]
+        target = (",".join(target))
+        message = "MoveBP," + self.rbtID + ',' + target + self.end_msg
+        return self.send(message)
+
+    def MoveRelL(self, target):
+        """"
+        Function: Robot moves a certain distance from the specified spatial coordinate direction
+        :param:  MoveRelL,rbtID,Spatial coordinate direction ID,Movement direction:0=negative;1=positive,Relative motion distance
+        :return:
+        """
+        target = [str(s) for s in target]
+        target = (",".join(target))
+        message = "MoveRelL," + self.rbtID + ',' + target + self.end_msg
+        return self.send(message)
+
+    def MoveRelJ(self, target):
+        """"
+        Function: Robot moves a certain distance from the specified spatial coordinate direction
+        :param:  MoveRelL,rbtID,Angular coordinate direction ID,Movement direction:0=negative;1=positive,Relative motion distance[degree]
+        :return:
+        """
+        target = [str(s) for s in target]
+        target = (",".join(target))
+        message = "MoveRelJ," + self.rbtID + ',' + target + self.end_msg
+        return self.send(message)
+
     def SetToolCoordinateMotion(self, status):
         """
         function: Function: Set tool coordinate motion
@@ -168,7 +235,7 @@ class elfin:
         return status
 
     def ReadMoveState(self):
-        """
+        """"
         Function: Get the motion state of the robot
         :return:
             Current state of motion of robot:
